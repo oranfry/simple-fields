@@ -69,8 +69,13 @@ trait SimpleFields
             $default = $allowed[$default_index];
         }
 
-        $this->completions[] = function ($line) use ($name, $default) {
-            if (!property_exists($line, $name) || $line->$name === null) {
+        $this->completions[] = function ($line) use ($name, $default, $allowed) {
+            if (
+                !property_exists($line, $name)
+                || $line->$name === null
+                || $line->$name === ''
+                && false === array_search('', $allowed)
+            ) {
                 $line->$name = $default;
             }
         };
