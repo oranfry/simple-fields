@@ -342,8 +342,21 @@ trait SimpleFields
             throw new SimpleFloatDefinitionException('Max DP is 48');
         }
 
-        $this->fields[$name] = fn ($records): float => (float) bcadd('0', $records['/']->$name ?? '0', $dp);
-        $this->unfuse_fields[$name] = fn ($line): string => bcadd('0', (string) ($line->$name ?? 0), $dp);
+        $this->fields[$name] = function ($records) use ($dp, $name): ?float {
+            if (null === $value = $records['/']->$name ?? null) {
+                return null;
+            }
+
+            return (float) bcadd('0', $value, $dp);
+        };
+
+        $this->unfuse_fields[$name] = function ($line) use ($dp, $name): ?string {
+            if (null === $value = $line->$name ?? null) {
+                return null;
+            }
+
+            return bcadd('0', (string) $value, $dp);
+        };
     }
 
     protected function simple_literal(string $name, $value)
