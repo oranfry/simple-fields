@@ -73,7 +73,7 @@ trait SimpleFields
 
         $this->validations[] = function ($line) use ($name, $allowed): ?string {
             if (!in_array($line->$name, $allowed)) {
-                return 'invalid ' . $name;
+                return 'Invalid ' . $name;
             }
 
             return null;
@@ -123,7 +123,7 @@ trait SimpleFields
 
             foreach ($values as $value) {
                 if (!in_array($value, $allowed)) {
-                    return 'invalid ' . $name . '. Unrecognised value "' . $value . '"';
+                    return 'Invalid ' . $name . '. Unrecognised value "' . $value . '"';
                 }
             }
 
@@ -398,7 +398,7 @@ trait SimpleFields
     protected function validate_time(?string $time, string $name): ?string
     {
         if ($time !== null) {
-            $format = '/^([0-9]{2})([0-9]{2})$/';
+            $format = '/^([0-9]{2}):([0-9]{2}):([0-9]{2})$/';
 
             if (!preg_match($format, $time, $groups)) {
                 return "Incorrect format";
@@ -410,6 +410,10 @@ trait SimpleFields
 
             if (intval($groups[2]) > 59) {
                 return "Invalid minute";
+            }
+
+            if (intval($groups[3]) > 59) {
+                return "Invalid second";
             }
         }
 
