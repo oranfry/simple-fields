@@ -6,6 +6,6 @@
         }
     },
     "require": {
-        "ext-bcmath": "*",
+        "ext-bcmath": "*"
     }
 }
