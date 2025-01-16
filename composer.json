@@ -4,5 +4,8 @@
         "psr-4": {
             "simplefields\\": "classes"
         }
+    },
+    "require": {
+        "ext-bcmath": "*",
     }
 }
