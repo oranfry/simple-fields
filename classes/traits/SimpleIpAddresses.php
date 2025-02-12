@@ -4,7 +4,7 @@ namespace simplefields\traits;
 
 use Closure;
 
-trait SimpleIpAddress
+trait SimpleIpAddresses
 {
     protected function simple_ip_address(string $name, Closure|string|null $default = null): void
     {
