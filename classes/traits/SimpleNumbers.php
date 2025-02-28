@@ -3,6 +3,7 @@
 namespace simplefields\traits;
 
 use Closure;
+use ValueError;
 
 trait SimpleNumbers
 {
@@ -29,7 +30,11 @@ trait SimpleNumbers
                 return null;
             }
 
-            return bcadd('0', (string) $value, $dp);
+            try {
+                return bcadd('0', (string) $value, $dp);
+            } catch (ValueError $ve) {
+                return null;
+            }
         };
     }
 
