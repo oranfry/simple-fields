@@ -9,24 +9,26 @@ trait SimpleEnums
 {
     protected function simple_enum(string $name, array $allowed, Closure|string|null $default = null): void
     {
-        $this->fields[$name] = function ($records) use ($name, $allowed): string {
-            if (null === $as_string = @$allowed[$records['/']->$name]) {
+        $this->fields[$name] = function ($records) use ($name, $allowed): ?string {
+            if (!array_key_exists($records['/']->$name, $allowed)) {
                 throw new SimpleEnumValueException('Could not fuse enum "' . $this->name . '->' . $name . '" with value "' . @$records['/']->$name . '". Expected one of [' . implode(', ', array_map(fn ($v) => '"' . $v . '"', $allowed)) . ']');
             }
 
-            return $as_string;
+            return $allowed[$records['/']->$name];
         };
 
         $this->unfuse_fields[$name] = function ($line, $oldline) use ($name, $allowed): int {
-            if (($as_int = @array_flip($allowed)[$line->$name]) === null) {
-                throw new SimpleEnumValueException('Could not unfuse enum ' . $name);
+            foreach ($allowed as $as_int => $allowed_value) {
+                if (@$line->$name === $allowed_value) {
+                    return $as_int;
+                }
             }
 
-            return $as_int;
+            throw new SimpleEnumValueException('Could not unfuse enum ' . $name);
         };
 
         $this->validations[] = function ($line) use ($name, $allowed): ?string {
-            if (!in_array($line->$name, $allowed)) {
+            if (!in_array($line->$name, $allowed, true)) {
                 return 'Invalid ' . $name;
             }
 
