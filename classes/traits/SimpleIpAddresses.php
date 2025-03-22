@@ -30,20 +30,20 @@ trait SimpleIpAddresses
             }
         };
 
-        $this->validations[] = fn ($line) => $line->$name && inet_pton($line->$name) === false ? $name . ' is not a valid ip address' : null;
+        $this->validations[] = fn ($line) => @$line->$name && inet_pton($line->$name) === false ? $name . ' is not a valid ip address' : null;
     }
 
     protected function simple_ipv4_address(string $name, Closure|string|null $default = null): void
     {
         $this->simple_ip_address($name, $default);
 
-        $this->validations[] = fn ($line) => $line->$name && strpos($line->$name, '.') === false ? $name . ' is not an ipv4 address' : null;
+        $this->validations[] = fn ($line) => @$line->$name && strpos($line->$name, '.') === false ? $name . ' is not an ipv4 address' : null;
     }
 
     protected function simple_ipv6_address(string $name, Closure|string|null $default = null): void
     {
         $this->simple_ip_address($name, $default);
 
-        $this->validations[] = fn ($line) => $line->$name && strpos($line->$name, ':') === false ? $name . ' is not an ipv6 address' : null;
+        $this->validations[] = fn ($line) => @$line->$name && strpos($line->$name, ':') === false ? $name . ' is not an ipv6 address' : null;
     }
 }

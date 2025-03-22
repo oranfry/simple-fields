@@ -3,6 +3,7 @@
 namespace simplefields\traits;
 
 use Closure;
+use simplefields\exception\SimpleLiteralDefinitionException;
 
 trait SimpleLiterals
 {

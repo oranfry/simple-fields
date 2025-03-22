@@ -3,9 +3,6 @@
 namespace simplefields\traits;
 
 use Closure;
-use simplefields\exception\SimpleEnumValueException;
-use simplefields\exception\SimpleFloatDefinitionException;
-use simplefields\exception\SimpleLiteralDefinitionException;
 
 trait SimpleFields
 {

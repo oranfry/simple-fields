@@ -10,14 +10,14 @@ trait SimpleDateTimes
     {
         $this->simple_string($name, $default);
 
-        $this->validations[] = fn ($line) => $this->validate_date($line->$name, $name);
+        $this->validations[] = fn ($line) => $this->validate_date($line->$name ?? null, $name);
     }
 
     protected function simple_datetime(string $name, Closure|string|null $default = null): void
     {
         $this->simple_string($name, $default);
 
-        $this->validations[] = fn ($line) => $this->validate_datetime($line->$name, $name);
+        $this->validations[] = fn ($line) => $this->validate_datetime($line->$name ?? null, $name);
     }
 
     protected function simple_time(string $name, ?string $default = null): void
