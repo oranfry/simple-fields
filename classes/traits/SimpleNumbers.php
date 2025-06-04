@@ -57,4 +57,41 @@ trait SimpleNumbers
             }
         };
     }
+
+    protected function simple_number(string $name, int $dp = 2): void
+    {
+        if ($dp < 0) {
+            throw new SimpleNumberDefinitionException('DP should not be negative');
+        }
+
+        if ($dp > 48) {
+            throw new SimpleNumberDefinitionException('Max DP is 48');
+        }
+
+        $this->fields[$name] = function ($records) use ($dp, $name): int|float|null {
+            if (null === $value = $records['/']->$name ?? null) {
+                return null;
+            }
+
+            $string = bcadd('0', $value, $dp);
+
+            if (preg_match('/\.[0]*[1-9]/', $string)) {
+                return (float) $string;
+            }
+
+            return (int) $string;
+        };
+
+        $this->unfuse_fields[$name] = function ($line) use ($dp, $name): ?string {
+            if (null === $value = $line->$name ?? null) {
+                return null;
+            }
+
+            try {
+                return bcadd('0', (string) $value, $dp);
+            } catch (ValueError $ve) {
+                return null;
+            }
+        };
+    }
 }
