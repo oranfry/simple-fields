@@ -41,7 +41,7 @@ trait SimpleNumbers
 
     protected function simple_int(string $name, Closure|int|null $default = null): void
     {
-        $this->fields[$name] = fn ($records): ?int => $records['/']->$name;
+        $this->fields[$name] = fn ($records): ?int => $records['/']->$name ?? null;
 
         $this->unfuse_fields[$name] = function($line, $oldline) use ($name): ?int {
             if (!is_numeric(@$line->$name)) {
