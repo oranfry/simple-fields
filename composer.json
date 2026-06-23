@@ -2,7 +2,7 @@
     "name": "oranfry/simple-fields",
     "autoload": {
         "psr-4": {
-            "simplefields\\": "classes"
+            "OranFry\\SimpleFields\\": ""
         }
     },
     "require": {

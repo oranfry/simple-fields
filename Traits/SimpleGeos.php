@@ -1,6 +1,6 @@
 <?php
 
-namespace simplefields\traits;
+namespace OranFry\SimpleFields\Traits;
 
 use Closure;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace simplefields\traits;
+namespace OranFry\SimpleFields\Traits;
 
 use Closure;
-use simplefields\exception\SimpleFloatDefinitionException;
+use OranFry\SimpleFields\Exception\SimpleFloatDefinitionException;
 use ValueError;
 
 trait SimpleNumbers

@@ -1,9 +1,9 @@
 <?php
 
-namespace simplefields\traits;
+namespace OranFry\SimpleFields\Traits;
 
 use Closure;
-use simplefields\exception\SimpleLiteralDefinitionException;
+use OranFry\SimpleFields\Exception\SimpleLiteralDefinitionException;
 
 trait SimpleLiterals
 {

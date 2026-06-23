@@ -1,5 +1,5 @@
 <?php
 
-namespace simplefields\exception;
+namespace OranFry\SimpleFields\Exception;
 
 class SimpleLiteralDefinitionException extends SimpleFieldDefinitionException {}
